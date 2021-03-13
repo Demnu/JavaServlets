@@ -1,50 +1,15 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <style>
-            table{
-                margin: auto;
-            }
-            body{
-                font-family: Arial, Helvetica, sans-serif;
-            }
-            h1{
-                text-align: center;
-            }
-            th {
-                background-color: white;
-                font-size: 2em;
-
-            }
-
-            td:hover{
-                background-color:red;
-            }
-            td {
-                background-color: green;
-                color: white;
-                border-radius: 20%;
-                width: 5em;
-                height: 5em;
-                text-align: center;
-                font-size: 1.2em;
-            }
-
-            .container{
-                background-color: white;
-                
-            }
-
-
-        </style>
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
 
 
         
-        </form>
         <h1>Charlestown Theatre Seating</h1>
         <div class="container">
+        <form action=""></form>
             <table>
                 <tr>
                     <th></th>
@@ -59,7 +24,7 @@
                 </tr>
                 <tr>
                     <th>A</th>
-                    <td>A-1</td>
+                    <td onclick="myFunction(this)">A-1</td>
                     <td>A-2</td>
                     <td>A-3</td>
                     <td>A-4</td>
@@ -143,8 +108,26 @@
                     <td>H-8</td>
                 </tr>
               </table>
+        </form>
         </div>
+        <table>
+            <tr onclick="myFunction(this)">
+              <td>Click to show rowIndex</td>
+            </tr>
+            <tr onclick="myFunction(this)">
+              <td>Click to show rowIndex</td>
+            </tr>
+            <tr onclick="myFunction(this)">
+              <td>Click to show rowIndex</td>
+            </tr>
+          </table>
+        <script>
+        function myFunction() {
+            alert("hello");}
 
+
+
+        </script>
 
     </body>
 

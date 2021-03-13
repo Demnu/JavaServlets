@@ -8,10 +8,13 @@ import java.util.*;
 public class SimpleMessage extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, IOException {
-		String fpath ="test";
 		PrintWriter out = response.getWriter();
-	String line ="";
 		ServletContext ctx = this.getServletContext();
+
+
+
+		String fpath ="test";
+		String line ="";
 		try{
 			fpath = ctx.getRealPath("/WEB-INF/test.txt");
 			BufferedReader freader = new BufferedReader(new FileReader(fpath));
@@ -19,13 +22,24 @@ public class SimpleMessage extends HttpServlet {
 			freader.close();
 
 		}catch(java.io.FileNotFoundException ex){		}
+
+
+
+
+
+		
 		out.println("<!DOCTYPE html>");
 		out.println("<h1>Headers 1 </h1>");
 		
 		out.println("<form action= /JavaServlets/SimpleMessage method = 'POST'>");
-        out.println("Name: <input type='text' name = 'name'/><br/>");
-        out.println("Age: <input type='text' name = 'age'/><br/>");
+        out.println("UserID: <input type='text' name = 'UserID'/><br/>");
+        out.println("Phone: <input type='text' name = 'Phone'/><br/>");
+		out.println("Address: <input type='text' name = 'Address'/><br/>");
+		out.println("Email: <input type='text' name = 'Email'/><br/>");
+		out.println("Security Code: <input type='text' name = 'SecurityCode'/><br/>");
+
         out.println("<input type='submit'>");
+		out.println("<input type='reset'>");
         out.println("</form>");
 		out.println("<a href ='/JavaServlets/OtherSimpleMessage'> Link </a>");
 		out.println(line);

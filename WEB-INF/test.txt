@@ -1,1 +1,18 @@
-A1 A2
+A1
+1000
+0423545053
+7 Bushlands Close
+harrison.joe.collins@gmail.com
+300000
+A2
+2000
+042324545053
+3 Red Close
+joe@gmail.com
+300000
+A3 
+3000
+042351312345053
+4 Short St
+harrison@gmail.com
+300000
