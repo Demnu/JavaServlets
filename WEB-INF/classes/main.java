@@ -17,22 +17,22 @@ public class main extends HttpServlet {
 
 		List<String[]> reservedseats = new ArrayList<>();
 		try{
-			String[] reservedSeatDetails = new String[8];
 			Scanner scanner = new Scanner(new File(fpath));
-			while(scanner.hasNext()){
+			while(scanner.hasNextLine()){
+				String[] reservedSeatDetails = new String[6];
 				reservedSeatDetails[0]=scanner.nextLine(); //Seat Number
 				reservedSeatDetails[1]=scanner.nextLine(); // UserID
 				reservedSeatDetails[2]=scanner.nextLine(); //Phone
 				reservedSeatDetails[3]=scanner.nextLine(); //Address
 				reservedSeatDetails[4]=scanner.nextLine(); //Email
 				reservedSeatDetails[5]=scanner.nextLine(); //Security code
+				// reservedSeatDetails[6]=new Date().toString(); //Date Booked
+				// scanner.nextLine();
+				// reservedSeatDetails[7]=scanner.nextLine(); //Name
 				reservedseats.add(reservedSeatDetails);
 			}
 			scanner.close();
 		}catch(java.io.FileNotFoundException ex){		}
-
-
-
 
 		out.println("<!DOCTYPE html>");
 			out.println("<html>");
@@ -60,9 +60,11 @@ public class main extends HttpServlet {
 									for (int j = 0; j <8 ; j++){
 										reserved = false;
 										seat= (letters[i]+(j+1));
+
 										for (int k = 0 ; k<reservedseats.size();k++){
-											if (seat.equals(reservedseats.get(k))){
-												out.println("<td class='reserved'>"+ letters[i] +"-"+ (j+1) +"</td>");
+											if (seat.equals(reservedseats.get(k)[0])){
+												String str = "\"" + reservedseats.get(k)[4]+"\"";
+												out.println("<td class='reserved' onclick='myFunction("+str+")'>" +  letters[i] +"-"+ (j+1) +"</td>");
 												reserved = true;
 											}
 										}
@@ -77,7 +79,13 @@ public class main extends HttpServlet {
 
 					// 
 
+					out.println("<script>");
 
+					out.println("function myFunction(k) {");
+						out.println("alert(k);");
+						out.println("}");
+						
+					out.println("</script>");
 				out.println("</body>");
 			out.println("</html>");
 	} 

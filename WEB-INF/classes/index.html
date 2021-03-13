@@ -6,7 +6,7 @@
     <body>
 
 
-        
+            
         <h1>Charlestown Theatre Seating</h1>
         <div class="container">
         <form action=""></form>
@@ -24,7 +24,16 @@
                 </tr>
                 <tr>
                     <th>A</th>
-                    <td onclick="myFunction(this)">A-1</td>
+
+                    <script>
+                        var str = "A-1";
+                        <td on></td>
+                                function myFunction(test) {
+                                alert(test);}
+                    </script>
+                    <td onclick='myFunction("dasda")'>A-1</td>
+
+
                     <td>A-2</td>
                     <td>A-3</td>
                     <td>A-4</td>
@@ -122,8 +131,8 @@
             </tr>
           </table>
         <script>
-        function myFunction() {
-            alert("hello");}
+        function myFunction(test) {
+            alert(test);}
 
 
 
