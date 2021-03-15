@@ -86,6 +86,7 @@ public class Booking extends HttpServlet {
 		out.println("<!DOCTYPE html>");
 		out.println("<html>");
 		String Seat = request.getParameter("Seat");
+		String validSeat;
 		String UserID = request.getParameter("UserID");
 		String Phone = request.getParameter("Phone");
 		String Address = request.getParameter("Address");
@@ -94,20 +95,40 @@ public class Booking extends HttpServlet {
 		int userIdCounter= 0;
 		String date = request.getParameter("Date");
 		Boolean seatReserved=false;
+		Boolean seatValid = false;
+		//validate seat
+		String[] letters = {"A","B","C","D","E","F","G","H"};
+		List<String> validSeats = new ArrayList<>();
+		for (int i =0; i<letters.length; i++){
+			for (int j = 0 ; j<8 ; j++){
+				validSeat = letters[i] + (j+1);
+				out.println(validSeat);
+				if (Seat.equals(validSeat))
+				{
+					seatValid = true;
+				}
+
+
+			}
+		}
+		if (!seatValid){
+			out.println("Error! Seat does not exist");
+		}
+		
 		for (int i = 0 ; i<reservedseats.size();i++){
 			if (reservedseats.get(i)[0].equals(Seat)){
-				out.println("seat already reserved");
+				out.println("Error! Seat already reserved");
 				seatReserved=true;
 			}
 		}
 
-		if(!seatReserved){
+		if(!seatReserved && seatValid){
 				//validate UserID\
 				if (UserID==null){
 					errors.add("UserID is required");
 				}
 				for (int i = 0; i<reservedseats.size();i++){
-					if (reservedseats.get(i)[1] == UserID){
+					if (reservedseats.get(i)[1].equals(UserID) ){
 						userIdCounter++;
 					}
 				}
@@ -123,42 +144,48 @@ public class Booking extends HttpServlet {
 				if (index==-1){
 					errors.add("Email must have an @ symbtol");
 				}
+				if (errors.isEmpty())
+				{
+					String outputPath = ctx.getRealPath("/WEB-INF/test.txt");
+					File fout = new File(outputPath);
+					FileOutputStream fos = new FileOutputStream(fout);
+					BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
+					
+					for (int i = 0; i < reservedseats.size(); i++) {
+						bw.write(reservedseats.get(i)[0]);
+						bw.newLine();
+						bw.write(reservedseats.get(i)[1]);
+						bw.newLine();
+						bw.write(reservedseats.get(i)[2]);
+						bw.newLine();
+						bw.write(reservedseats.get(i)[3]);
+						bw.newLine();
+						bw.write(reservedseats.get(i)[4]);
+						bw.newLine();
+						bw.write(reservedseats.get(i)[5]);
+						bw.newLine();
+						}
+					bw.write(Seat);
+					bw.newLine();
+					bw.write(UserID);
+					bw.newLine();
+					bw.write(Phone);
+					bw.newLine();
+					bw.write(Address);
+					bw.newLine();
+					bw.write(Email);
+					bw.newLine();
+					bw.write(date);
+					bw.newLine();
+					bw.close();
+					out.println("<p>Success!</p>");
 
-				if (!errors.isEmpty()){
-					out.println("<p>"+errors+ "</p>");
+			
 				}
-				String outputPath = ctx.getRealPath("/WEB-INF/test.txt");
-				File fout = new File(outputPath);
-				FileOutputStream fos = new FileOutputStream(fout);
-				BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
-				
-				for (int i = 0; i < reservedseats.size(); i++) {
-					bw.write(reservedseats.get(i)[0]);
-					bw.newLine();
-					bw.write(reservedseats.get(i)[1]);
-					bw.newLine();
-					bw.write(reservedseats.get(i)[2]);
-					bw.newLine();
-					bw.write(reservedseats.get(i)[3]);
-					bw.newLine();
-					bw.write(reservedseats.get(i)[4]);
-					bw.newLine();
-					bw.write(reservedseats.get(i)[5]);
-					bw.newLine();
-					}
-				bw.write(Seat);
-				bw.newLine();
-				bw.write(UserID);
-				bw.newLine();
-				bw.write(Phone);
-				bw.newLine();
-				bw.write(Address);
-				bw.newLine();
-				bw.write(Email);
-				bw.newLine();
-				bw.write(date);
-				bw.newLine();
-				bw.close();
+				else{
+					out.println("<p>Failure! - "+errors+ "</p>");
+
+				}
 
 			
 			out.println("<a href ='/JavaServlets/main'> Back to main page </a>");

@@ -53,7 +53,7 @@ public class main extends HttpServlet {
 								out.println("<th>8</th>");
 							out.println("</tr>");
 							String[] letters = {"A","B","C","D","E","F","G","H"};
-							String seat,str;
+							String seat,alreadyBooked;
 							Boolean reserved;
 
 
@@ -67,13 +67,13 @@ public class main extends HttpServlet {
 										seat= (letters[i]+(j+1));
 										for (int k = 0 ; k<reservedseats.size();k++){
 											if (seat.equals(reservedseats.get(k)[0])){
-												str = "\"" + reservedseats.get(k)[4]+"\"";
-												out.println("<td class='reserved' onclick='myFunction("+str+")'><div>" + letters[i] +"-"+ (j+1) + "</div></td>");
+												alreadyBooked = "\""+letters[i] +"-"+ (j+1) + " is already booked! | UserID: " + reservedseats.get(k)[1]+" | Date Booked: " + reservedseats.get(k)[5]+"\"";
+												out.println("<td class='reserved' onclick='myFunction("+alreadyBooked+")'><div>" + letters[i] +"-"+ (j+1) + "</div></td>");
 												reserved = true;
 											}
 										}
 										if (!reserved){
-											out.println("<td class='notBooked'><a href='/JavaServlets/Booking?seatNum="+seat+"'><div><p class='notBooked'>"+letters[i] +"-"+ (j+1)+"</p></div></a></td>");
+											out.println("<td class='notBooked'><a class='seats' href='/JavaServlets/Booking?seatNum="+seat+"'><div><p class='notBooked'>"+letters[i] +"-"+ (j+1)+"</p></div></a></td>");
 											
 
 										}
