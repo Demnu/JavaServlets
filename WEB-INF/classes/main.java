@@ -25,10 +25,7 @@ public class main extends HttpServlet {
 				reservedSeatDetails[2]=scanner.nextLine(); //Phone
 				reservedSeatDetails[3]=scanner.nextLine(); //Address
 				reservedSeatDetails[4]=scanner.nextLine(); //Email
-				reservedSeatDetails[5]=scanner.nextLine(); //Security code
-				// reservedSeatDetails[6]=new Date().toString(); //Date Booked
-				// scanner.nextLine();
-				// reservedSeatDetails[7]=scanner.nextLine(); //Name
+				reservedSeatDetails[5]=scanner.nextLine(); //Date
 				reservedseats.add(reservedSeatDetails);
 			}
 			scanner.close();
@@ -38,11 +35,14 @@ public class main extends HttpServlet {
 			out.println("<html>");
 				out.println("<head>");
 					out.println("<link rel='stylesheet' href='style.css'>");
+					out.println("<script src = 'script.js'> </script>");
+
 				out.println("</head>");
 				out.println("<body>");
 					out.println("<h1>Charlestown Theatre Seating</h1>");
 						out.println("<table>");
 							out.println("<tr>");
+								out.println("<th></th>");
 								out.println("<th>1</th>");
 								out.println("<th>2</th>");
 								out.println("<th>3</th>");          
@@ -53,42 +53,137 @@ public class main extends HttpServlet {
 								out.println("<th>8</th>");
 							out.println("</tr>");
 							String[] letters = {"A","B","C","D","E","F","G","H"};
-							String seat;
+							String seat,str;
 							Boolean reserved;
+
+
+
 							for (int i = 0 ; i<8;i++){
 								out.println("<tr>");
+								out.println("<th>" + letters[i]+ "</th>");
+
 									for (int j = 0; j <8 ; j++){
 										reserved = false;
 										seat= (letters[i]+(j+1));
-
 										for (int k = 0 ; k<reservedseats.size();k++){
 											if (seat.equals(reservedseats.get(k)[0])){
-												String str = "\"" + reservedseats.get(k)[4]+"\"";
-												out.println("<td class='reserved' onclick='myFunction("+str+")'>" +  letters[i] +"-"+ (j+1) +"</td>");
+												str = "\"" + reservedseats.get(k)[4]+"\"";
+												out.println("<td class='reserved' onclick='myFunction("+str+")'><div>" + letters[i] +"-"+ (j+1) + "</div></td>");
 												reserved = true;
 											}
 										}
-										
 										if (!reserved){
-											out.println("<td>"+ letters[i] +"-"+ (j+1) +"</td>");
+											out.println("<td class='notBooked'><a href='/JavaServlets/Booking?seatNum="+seat+"'><div><p class='notBooked'>"+letters[i] +"-"+ (j+1)+"</p></div></a></td>");
+											
+
 										}
 									}
 								out.println("</tr>");
 							}
 						out.println("/<table>");
+						// 	for (int i = 0 ; i<8;i++){
+						// 		out.println("<tr>");
+						// 		out.println("<th>" + letters[i]+ "</th>");
 
-					// 
+						// 			for (int j = 0; j <8 ; j++){
+						// 				reserved = false;
+						// 				seat= (letters[i]+(j+1));
 
-					out.println("<script>");
+						// 				for (int k = 0 ; k<reservedseats.size();k++){
+						// 					if (seat.equals(reservedseats.get(k)[0])){
+						// 						String str = "\"" + reservedseats.get(k)[4]+"\"";
+						// 						out.println("<td class='reserved' + onclick='myFunction("+str+")'>");
+						// 						out.println(letters[i] +"-"+ (j+1));
+						// 						out.println("</td>");
+												
+						// 						// out.println("<form action= /JavaServlets/main method = 'POST'>");
+						// 						// out.println("UserID: <input type='text' name = 'name'/><br/>");
+						// 						// out.println("Phone: <input type='text' name = 'age'/><br/>");
+						// 						// out.println("Address: <input type='text' name = 'Address'/><br/>");
+						// 						// out.println("Email: <input type='text' name = 'Email'/><br/>");
+						// 						// out.println("Security Code: <input type='text' name = 'SecurityCode'/><br/>");
+						// 						// out.println("<input type='submit'>");
+						// 						// out.println("<input type='reset'>");
+						// 						// out.println("</form>");
 
-					out.println("function myFunction(k) {");
-						out.println("alert(k);");
-						out.println("}");
-						
-					out.println("</script>");
+
+						// 						reserved = true;
+						// 					}
+						// 				}
+						// 				String seatNum = "\"" + letters[i]+(j+1)+"\"";
+
+						// 				if (!reserved){
+						// 					out.println("<td><p class='textinTD'>"+ letters[i] +"-"+ (j+1));
+						// 					out.println("</p><form action= /JavaServlets/main method = 'POST'>");
+						// 					out.println("<input type='hidden' name='seatNumber' value= '"+seatNum+"'>");
+						// 					out.println("<input type='submit'>");
+						// 					out.println("</form>");
+						// 					out.println("</td>");
+						// 				}
+						// 			}
+						// // 		out.println("</tr>");
+						// 	}
+						// out.println("/<table>");
+						// out.println("<form action= /JavaServlets/main method = 'POST'>");
+						// out.println("UserID: <input type='text' name = 'name'/><br/>");
+						// out.println("Phone: <input type='text' name = 'age'/><br/>");
+						// out.println("Address: <input type='text' name = 'Address'/><br/>");
+						// out.println("Email: <input type='text' name = 'Email'/><br/>");
+						// out.println("Security Code: <input type='text' name = 'SecurityCode'/><br/>");
+						// out.println("<input type='submit'>");
+						// out.println("<input type='reset'>");
+						// out.println("</form>");
+
+
+
+
 				out.println("</body>");
 			out.println("</html>");
 	} 
+
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
+	throws ServletException, IOException {
+		List<String> errors = new ArrayList<>();
+
+
+		PrintWriter out = response.getWriter();
+
+		String name = request.getParameter("name");
+		String ageStr = request.getParameter("age");
+		int age;
+		out.println(name + ageStr);
+		if (name.isEmpty()){
+			errors.add("Name is null");
+		}
+		else if (name.length() < 10){
+			errors.add("Name is less than 10 characters");
+		}
+
+		if(ageStr.isEmpty()){
+			errors.add("Age is null");
+		}
+		else{
+			try{
+				age = Integer.parseInt(ageStr);
+					if(age<0 || age>100){
+					errors.add("Age must be between 0 and 100");
+				}
+			}catch (NumberFormatException ex){
+				errors.add("Age is not a valid integer");
+			}
+		}
+
+		if (errors.isEmpty()){
+			out.println("Success!");
+
+		}
+		else{
+			out.println(errors);
+
+		}
+		
+
+	}
 }
 
 

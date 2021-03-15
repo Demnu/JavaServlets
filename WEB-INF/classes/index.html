@@ -2,6 +2,7 @@
 <html>
     <head>
         <link rel="stylesheet" href="style.css">
+        <script src="script.js"></script>
     </head>
     <body>
 
@@ -25,17 +26,15 @@
                 <tr>
                     <th>A</th>
 
-                    <script>
-                        var str = "A-1";
-                        <td on></td>
-                                function myFunction(test) {
-                                alert(test);}
-                    </script>
-                    <td onclick='myFunction("dasda")'>A-1</td>
 
 
-                    <td>A-2</td>
-                    <td>A-3</td>
+
+                        <td onclick='myFunction("dasda")'>A-1</td>
+
+
+
+                    <a href="#"><td>A-2</td></a>
+                    <td><a href="#"><div style="height:100%;width:100%">A-3</div></a></td>
                     <td>A-4</td>
                     <td>A-5</td>
                     <td>A-6</td>
@@ -130,13 +129,11 @@
               <td>Click to show rowIndex</td>
             </tr>
           </table>
-        <script>
-        function myFunction(test) {
-            alert(test);}
 
-
-
-        </script>
+          <form name = "userDetails" method="post" action="">
+              <input type="text" id = "age" name = "age">
+              <input type="submit" value="Click Here to Submit" onClick="myFunction()"> 
+          </form>
 
     </body>
 
