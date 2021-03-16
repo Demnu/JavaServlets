@@ -1,16 +1,64 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="style.css">
         <script src="script.js"></script>
+        <style>
+            table{
+                margin: auto;
+            }
+            body{
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            h1{
+                text-align: center;
+            }
+            th {
+                background-color: white;
+                font-size: 2em;
+
+            }
+
+            td:hover{
+                background-color:red;
+            }
+            td {
+                background-color: green;
+                color: white;
+                border-radius: 20%;
+                width: 5em;
+                height: 5em;
+                text-align: center;
+                font-size: 1.2em;
+            }
+
+            .container{
+                background-color: white;
+                
+            }
+
+            .container2{
+                color: white;
+                background-color: #333;
+                padding:3px;
+            }
+
+            .container3{
+                text-align: right;
+                color: white;
+                background-color: #333;
+                padding:3px;
+            }
+        </style>
     </head>
-    <body>
+    <body onload="startTime()">
+        <div id="txt">test</div>
+        
+        </form>
+        <div class="container2">
+            <h1>Charlestown Theatre Seating</h1>
 
-
-            
-        <h1>Charlestown Theatre Seating</h1>
+        </div>
         <div class="container">
-        <form action=""></form>
             <table>
                 <tr>
                     <th></th>
@@ -25,16 +73,9 @@
                 </tr>
                 <tr>
                     <th>A</th>
-
-
-
-
-                        <td onclick='myFunction("dasda")'>A-1</td>
-
-
-
-                    <a href="#"><td>A-2</td></a>
-                    <td><a href="#"><div style="height:100%;width:100%">A-3</div></a></td>
+                    <td>A-1</td>
+                    <td>A-2</td>
+                    <td>A-3</td>
                     <td>A-4</td>
                     <td>A-5</td>
                     <td>A-6</td>
@@ -116,25 +157,12 @@
                     <td>H-8</td>
                 </tr>
               </table>
-        </form>
         </div>
-        <table>
-            <tr onclick="myFunction(this)">
-              <td>Click to show rowIndex</td>
-            </tr>
-            <tr onclick="myFunction(this)">
-              <td>Click to show rowIndex</td>
-            </tr>
-            <tr onclick="myFunction(this)">
-              <td>Click to show rowIndex</td>
-            </tr>
-          </table>
 
-          <form name = "userDetails" method="post" action="">
-              <input type="text" id = "age" name = "age">
-              <input type="submit" value="Click Here to Submit" onClick="myFunction()"> 
-          </form>
+        <div class="container3">
+            <p>© Harrison Collins c3282352</p>
 
+        </div>
     </body>
 
 

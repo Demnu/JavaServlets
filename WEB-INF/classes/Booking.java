@@ -29,8 +29,9 @@ public class Booking extends HttpServlet {
 				out.println("<script src = 'script.js'> </script>");
 			out.println("</head>");
 			out.println("<body>");
-
-				out.println("<h1>Charlestown Theatre Seating</h1>");
+				out.println("<div class='container2'>");
+				out.println("<h1><a class='container2' href='main'>Charlestown Theatre Seating</a></h1>");
+				out.println("</div>");
 				out.println("<h2>Booking for Seat " + seat + "</h2>");
 				out.println("<p>Security Code: "+securityCode);
 				out.println("<p>Please enter your details and security code below: </p>");
@@ -45,9 +46,13 @@ public class Booking extends HttpServlet {
 
 				out.println("<input type='submit'onClick='return formvalidation(\""+securityCode+"\")'>");
 				out.println("<input type='reset' value='Clear'>");				
-				out.println("<a href ='/JavaServlets/main'> Cancel </a>");
+				out.println("<a class='homeLink' href ='/JavaServlets/main'> Cancel </a>");
 				out.println("</form>");
-			out.println("<body>");
+
+				out.println("<div class='container3'>");
+				out.println("© Harrison Collins c3282352");
+				out.println("</div>");
+			out.println("</body>");
 
 
 		out.println("</html>");
@@ -63,6 +68,7 @@ public class Booking extends HttpServlet {
 
 		List<String> errors = new ArrayList<>();
 		String fpath = ctx.getRealPath("/WEB-INF/test.txt");
+		String cssTag = ctx.getRealPath("style.css");
 		List<String[]> reservedseats = new ArrayList<>();
 		try{
 			Scanner scanner = new Scanner(new File(fpath));
@@ -85,6 +91,16 @@ public class Booking extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		out.println("<!DOCTYPE html>");
 		out.println("<html>");
+				out.println("<head>");
+					out.println("<link rel='stylesheet' href='style.css'>");
+					out.println("<script src = 'script.js'> </script>");
+
+				out.println("</head>");
+				out.println("<body>");
+				out.println("<div class='container2'>");
+				out.println("<h1><a class='container2' href='main'>Charlestown Theatre Seating</a></h1>");
+				out.println("</div>");
+
 		String Seat = request.getParameter("Seat");
 		String validSeat;
 		String UserID = request.getParameter("UserID");
@@ -102,7 +118,6 @@ public class Booking extends HttpServlet {
 		for (int i =0; i<letters.length; i++){
 			for (int j = 0 ; j<8 ; j++){
 				validSeat = letters[i] + (j+1);
-				out.println(validSeat);
 				if (Seat.equals(validSeat))
 				{
 					seatValid = true;
@@ -188,19 +203,24 @@ public class Booking extends HttpServlet {
 				}
 
 			
-			out.println("<a href ='/JavaServlets/main'> Back to main page </a>");
-			out.println("</html>");
+
 		}		
 
+			out.println("<a class='homeLink' href ='/JavaServlets/main'> Back to main page </a>");
+			out.println("<div class='container3'>");
+			out.println("© Harrison Collins c3282352");
+			out.println("</div>");
+			out.println("</body>");
 
+			out.println("</html>");
 
 		
 
 	}
 
-	public String randomString(){
+		public String randomString(){
 	//Code referenced from https://www.programiz.com/java-programming/examples/generate-random-string
-		String availableChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
+		String availableChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890123456789";
     // create random string builder
     StringBuilder sb = new StringBuilder();
 

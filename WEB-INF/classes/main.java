@@ -33,13 +33,16 @@ public class main extends HttpServlet {
 
 		out.println("<!DOCTYPE html>");
 			out.println("<html>");
+
 				out.println("<head>");
 					out.println("<link rel='stylesheet' href='style.css'>");
 					out.println("<script src = 'script.js'> </script>");
 
 				out.println("</head>");
-				out.println("<body>");
-					out.println("<h1>Charlestown Theatre Seating</h1>");
+				out.println("<body onload='startTime()'>");
+				out.println("<div class='container2'>");
+				out.println("<h1><a class='container2' href='main'>Charlestown Theatre Seating</a></h1>");
+				out.println("</div>");
 						out.println("<table>");
 							out.println("<tr>");
 								out.println("<th></th>");
@@ -73,70 +76,21 @@ public class main extends HttpServlet {
 											}
 										}
 										if (!reserved){
-											out.println("<td class='notBooked'><a class='seats' href='/JavaServlets/Booking?seatNum="+seat+"'><div><p class='notBooked'>"+letters[i] +"-"+ (j+1)+"</p></div></a></td>");
+											out.println("<td class='notBooked'><a class='notBooked' href='/JavaServlets/Booking?seatNum="+seat+"'><div><p class='notBooked'>"+letters[i] +"-"+ (j+1)+"</p></div></a></td>");
 											
 
 										}
 									}
 								out.println("</tr>");
 							}
-						out.println("/<table>");
-						// 	for (int i = 0 ; i<8;i++){
-						// 		out.println("<tr>");
-						// 		out.println("<th>" + letters[i]+ "</th>");
+						out.println("</table>");
+				out.println("<div class='timeContainer'><p id='time'></p>");
+				
+				out.println("</div>");
 
-						// 			for (int j = 0; j <8 ; j++){
-						// 				reserved = false;
-						// 				seat= (letters[i]+(j+1));
-
-						// 				for (int k = 0 ; k<reservedseats.size();k++){
-						// 					if (seat.equals(reservedseats.get(k)[0])){
-						// 						String str = "\"" + reservedseats.get(k)[4]+"\"";
-						// 						out.println("<td class='reserved' + onclick='myFunction("+str+")'>");
-						// 						out.println(letters[i] +"-"+ (j+1));
-						// 						out.println("</td>");
-												
-						// 						// out.println("<form action= /JavaServlets/main method = 'POST'>");
-						// 						// out.println("UserID: <input type='text' name = 'name'/><br/>");
-						// 						// out.println("Phone: <input type='text' name = 'age'/><br/>");
-						// 						// out.println("Address: <input type='text' name = 'Address'/><br/>");
-						// 						// out.println("Email: <input type='text' name = 'Email'/><br/>");
-						// 						// out.println("Security Code: <input type='text' name = 'SecurityCode'/><br/>");
-						// 						// out.println("<input type='submit'>");
-						// 						// out.println("<input type='reset'>");
-						// 						// out.println("</form>");
-
-
-						// 						reserved = true;
-						// 					}
-						// 				}
-						// 				String seatNum = "\"" + letters[i]+(j+1)+"\"";
-
-						// 				if (!reserved){
-						// 					out.println("<td><p class='textinTD'>"+ letters[i] +"-"+ (j+1));
-						// 					out.println("</p><form action= /JavaServlets/main method = 'POST'>");
-						// 					out.println("<input type='hidden' name='seatNumber' value= '"+seatNum+"'>");
-						// 					out.println("<input type='submit'>");
-						// 					out.println("</form>");
-						// 					out.println("</td>");
-						// 				}
-						// 			}
-						// // 		out.println("</tr>");
-						// 	}
-						// out.println("/<table>");
-						// out.println("<form action= /JavaServlets/main method = 'POST'>");
-						// out.println("UserID: <input type='text' name = 'name'/><br/>");
-						// out.println("Phone: <input type='text' name = 'age'/><br/>");
-						// out.println("Address: <input type='text' name = 'Address'/><br/>");
-						// out.println("Email: <input type='text' name = 'Email'/><br/>");
-						// out.println("Security Code: <input type='text' name = 'SecurityCode'/><br/>");
-						// out.println("<input type='submit'>");
-						// out.println("<input type='reset'>");
-						// out.println("</form>");
-
-
-
-
+				out.println("<div class='container3'>");
+					out.println("© Harrison Collins c3282352");
+				out.println("</div>");
 				out.println("</body>");
 			out.println("</html>");
 	} 

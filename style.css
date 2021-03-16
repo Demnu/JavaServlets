@@ -1,5 +1,6 @@
 table{
     margin: auto;
+    padding-top: 10px;
 
 }
 body{
@@ -28,18 +29,15 @@ td.notBooked{
     background-color: green;
 }
 
-p.notBooked{
-	margin:auto;
-}
-div{
+div.notBooked{
 	width:100%;
 	height:100%;
 	padding-top:3.5em;
 }
-a:visted{
+a.notBooked:visited{
 	color: white;
 }
-a{
+a.notBooked{
 
 	color: white;
 	text-decoration:none;
@@ -49,7 +47,11 @@ td:hover{
 
 }
 
-
+.timeContainer{
+    width: 100%;
+    text-align: center;
+    font-size: 24px;
+}
 
 
 td {
@@ -63,5 +65,27 @@ td {
 
 }
 
+.container2{
+    text-decoration: none;
+    padding:0px;
+    color: white;
+    background-color: #333;
+    padding:3px;
+}
 
+.container3{
+    text-align: right;
+    color: white;
+    background-color: #333;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
 
+a{
+    color: black;
+}
+a.visited{
+    color:black;
+}
