@@ -1,3 +1,14 @@
+html, body{
+    margin: 0;
+    
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+
 table{
     margin: auto;
     padding-top: 10px;
@@ -60,8 +71,8 @@ td {
     text-align: center;
     font-size: 1.2em;
 
-	width: 4.4em;
-    height: 4em;
+	width: 3.5em;
+    height: 3.5em;
 
 }
 
