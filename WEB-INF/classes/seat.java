@@ -17,7 +17,7 @@ public class seat {
         return name;
     }
 
-    public String getReserved() {
+    public boolean getReserved() {
         return reserved;
     }
 }

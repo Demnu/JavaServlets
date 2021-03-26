@@ -32,6 +32,7 @@ public class Booking extends HttpServlet {
 				out.println("<div class='container2'>");
 				out.println("<h1><a class='container2' href='main'>Charlestown Theatre Seating</a></h1>");
 				out.println("</div>");
+				out.println("<div class='container4'>");
 				out.println("<h2>Booking for Seat " + seat + "</h2>");
 				out.println("<p>Security Code: "+securityCode);
 				out.println("<p>Please enter your details and security code below: </p>");
@@ -43,11 +44,12 @@ public class Booking extends HttpServlet {
 				out.println("Security Code*: <input type='text' name = 'SecurityCode'/><br/>");
 				out.println("<input type='hidden' name='Date' value=\""+date+"\">");
 				out.println("<input type='hidden' name='Seat' value=\""+seat+"\">");
-
-				out.println("<input type='submit'onClick='return formvalidation(\""+securityCode+"\")'>");
+				out.println("<input type='submit'onClick='return formvalidation(\""+securityCode+"\",\""+ seat + "\")'>");
 				out.println("<input type='reset' value='Clear'>");				
 				out.println("<a class='homeLink' href ='/JavaServlets/main'> Cancel </a>");
 				out.println("</form>");
+				out.println("</div>");
+
 
 				out.println("<div class='container3'>");
 				out.println("© Harrison Collins c3282352");
@@ -65,7 +67,6 @@ public class Booking extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, IOException {
 		ServletContext ctx = this.getServletContext();
-
 		List<String> errors = new ArrayList<>();
 		String fpath = ctx.getRealPath("/WEB-INF/test.txt");
 		String cssTag = ctx.getRealPath("style.css");
@@ -110,7 +111,6 @@ public class Booking extends HttpServlet {
 		String SecurityCode = request.getParameter("SecurityCode");
 		int userIdCounter= 0;
 		String date = request.getParameter("Date");
-		Boolean seatReserved=false;
 		Boolean seatValid = false;
 		//validate seat
 		String[] letters = {"A","B","C","D","E","F","G","H"};
@@ -120,102 +120,86 @@ public class Booking extends HttpServlet {
 				validSeat = letters[i] + (j+1);
 				if (Seat.equals(validSeat))
 				{
-					seatValid = true;
+					seatValid = true;			
 				}
-
-
 			}
 		}
 		if (!seatValid){
-			out.println("Error! Seat does not exist");
+			errors.add("Seat " + Seat+ " does not exist");
 		}
-		
 		for (int i = 0 ; i<reservedseats.size();i++){
 			if (reservedseats.get(i)[0].equals(Seat)){
-				out.println("Error! Seat already reserved");
-				seatReserved=true;
+				errors.add("Seat " + Seat+ " already reserved");
 			}
 		}
+		//validate UserID\
+		if (UserID==null){
+			errors.add("UserID is required");
+		}
+		for (int i = 0; i<reservedseats.size();i++){
+			if (reservedseats.get(i)[1].equals(UserID) ){
+				userIdCounter++;
+			}
+		}
+		if(userIdCounter>=3){
+			errors.add("The customer has exceeded the maximum amount of 3 seats that can be booked");
+		}
 
-		if(!seatReserved && seatValid){
-				//validate UserID\
-				if (UserID==null){
-					errors.add("UserID is required");
-				}
-				for (int i = 0; i<reservedseats.size();i++){
-					if (reservedseats.get(i)[1].equals(UserID) ){
-						userIdCounter++;
-					}
-				}
-				if(userIdCounter>=3){
-					errors.add("The customer has exceeded the maximum amount of 3 seats that can be booked");
-				}
-
-				//validate email
-				if (Email == null){
-					errors.add("Email is required");
-				}
-				int index = Email.indexOf('@');
-				if (index==-1){
-					errors.add("Email must have an @ symbtol");
-				}
-				if (errors.isEmpty())
-				{
-					String outputPath = ctx.getRealPath("/WEB-INF/test.txt");
-					File fout = new File(outputPath);
-					FileOutputStream fos = new FileOutputStream(fout);
-					BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
-					
-					for (int i = 0; i < reservedseats.size(); i++) {
-						bw.write(reservedseats.get(i)[0]);
-						bw.newLine();
-						bw.write(reservedseats.get(i)[1]);
-						bw.newLine();
-						bw.write(reservedseats.get(i)[2]);
-						bw.newLine();
-						bw.write(reservedseats.get(i)[3]);
-						bw.newLine();
-						bw.write(reservedseats.get(i)[4]);
-						bw.newLine();
-						bw.write(reservedseats.get(i)[5]);
-						bw.newLine();
-						}
-					bw.write(Seat);
-					bw.newLine();
-					bw.write(UserID);
-					bw.newLine();
-					bw.write(Phone);
-					bw.newLine();
-					bw.write(Address);
-					bw.newLine();
-					bw.write(Email);
-					bw.newLine();
-					bw.write(date);
-					bw.newLine();
-					bw.close();
-					out.println("<p>Success!</p>");
-
+		//validate email
+		if (Email == null){
+			errors.add("Email is required");
+		}
+		int index = Email.indexOf('@');
+		if (index==-1){
+			errors.add("Email must have an @ symbtol");
+		}
+		if (errors.isEmpty())
+		{
+			String outputPath = ctx.getRealPath("/WEB-INF/test.txt");
+			File fout = new File(outputPath);
+			FileOutputStream fos = new FileOutputStream(fout);
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
 			
-				}
-				else{
-					out.println("<p>Failure! - "+errors+ "</p>");
+			for (int i = 0; i < reservedseats.size(); i++) {
+				bw.write(reservedseats.get(i)[0]);
+				bw.newLine();
+				bw.write(reservedseats.get(i)[1]);
+				bw.newLine();
+				bw.write(reservedseats.get(i)[2]);
+				bw.newLine();
+				bw.write(reservedseats.get(i)[3]);
+				bw.newLine();
+				bw.write(reservedseats.get(i)[4]);
+				bw.newLine();
+				bw.write(reservedseats.get(i)[5]);
+				bw.newLine();
+			}
+			bw.write(Seat);
+			bw.newLine();
+			bw.write(UserID);
+			bw.newLine();
+			bw.write(Phone);
+			bw.newLine();
+			bw.write(Address);
+			bw.newLine();
+			bw.write(Email);
+			bw.newLine();
+			bw.write(date);
+			bw.newLine();
+			bw.close();
+			out.println("<h2>Success!</h2><p>Seat " + Seat + " has been successfully booked</p>");
 
-				}
-
+		}
+		else{
+			out.println("<p>Failure! - "+errors+ "</p>");
+		}
 			
-
-		}		
-
-			out.println("<a class='homeLink' href ='/JavaServlets/main'> Back to main page </a>");
-			out.println("<div class='container3'>");
-			out.println("© Harrison Collins c3282352");
-			out.println("</div>");
-			out.println("</body>");
-
-			out.println("</html>");
-
-		
-
+	out.println("<a class='homeLink' href ='/JavaServlets/main'> Back to main page </a>");
+	out.println("<div class='container3'>");
+	out.println("© Harrison Collins c3282352");
+	out.println("</div>");
+	out.println("</body>");
+	out.println("</html>");
 	}
 
 		public String randomString(){

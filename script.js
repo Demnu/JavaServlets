@@ -4,7 +4,7 @@ function myFunction(k) {
     alert(k);
 }
 
-function formvalidation(securityCode){
+function formvalidation(securityCode , seat){
     
     var valid = true;
     if(/\d/.test(document.userDetails.UserID.value)){
@@ -27,6 +27,15 @@ function formvalidation(securityCode){
         valid = false;
     }
 
+    if(document.userDetails.SecurityCode.value!=securityCode){
+        alert("Incorrect Security Code")
+        valid = false;
+    }
+
+    if(document.userDetails.Seat.value!=seat){
+        alert("The seat chosen does not match the seat that is being booked")
+        valid = false;
+    }
     return valid;
 }
 
